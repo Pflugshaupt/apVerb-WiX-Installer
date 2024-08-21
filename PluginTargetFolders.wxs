@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    This fragment sets Ids for the folders we want to install to.
+    The (!bind.Property.XXX) string are filled in by WiX based
+    on the setup in Package.wxs
+-->
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+	<Fragment>
+		<!-- VST2 32-bit -->
+		<StandardDirectory Id="ProgramFilesFolder">
+			<Directory Name="Steinberg">
+				<Directory Name="VSTPlugins" Id="VST2FOLDER_32" />
+			</Directory>
+		</StandardDirectory>
+
+		<!-- VST2 64-bit -->
+		<StandardDirectory Id="ProgramFiles64Folder">
+			<Directory Name="Steinberg">
+				<Directory Name="VSTPlugins" Id="VST2FOLDER" />
+			</Directory>
+		</StandardDirectory>
+
+		<!-- VST3 32-bit -->
+		<StandardDirectory Id="CommonFilesFolder">
+			<Directory Name="VST3" Id="VST3FOLDER_32" />
+		</StandardDirectory>
+
+		<!-- VST3 64-bit -->
+		<StandardDirectory Id="CommonFiles64Folder">
+			<Directory Name="VST3" Id="VST3FOLDER" />
+		</StandardDirectory>
+
+		<!-- AAX 32-bit -->
+		<StandardDirectory Id="CommonFilesFolder">
+			<Directory Name="Avid">
+				<Directory Name="Audio">
+					<Directory Name="Plug-Ins" Id="AAXFOLDER_32">
+						<Directory Name="!(bind.Property.ProductName).aaxplugin">
+							<Directory Name="Contents">
+								<Directory Name="Win32" Id="AAXFOLDER_32_32"/>
+								<Directory Name="x64" Id="AAXFOLDER_32_64"/>
+							</Directory>
+						</Directory>
+					</Directory>
+				</Directory>
+			</Directory>
+		</StandardDirectory>
+
+		<!-- AAX 64-bit -->
+		<StandardDirectory Id="CommonFiles64Folder">
+			<Directory Name="Avid">
+				<Directory Name="Audio">
+					<Directory Name="Plug-Ins" Id="AAXFOLDER">
+						<Directory Name="!(bind.Property.ProductName).aaxplugin">
+							<Directory Name="Contents">
+								<Directory Name="Win32" Id="AAXFOLDER_64_32"/>
+								<Directory Name="x64" Id="AAXFOLDER_64_64"/>
+							</Directory>
+						</Directory>
+					</Directory>
+				</Directory>
+			</Directory>
+		</StandardDirectory>
+
+		<!-- User Data Folder -->
+		<StandardDirectory Id="AppDataFolder">
+			<Directory Name="!(bind.Property.Manufacturer)" Id="MANUDATAFOLDER">
+				<Directory Name="!(bind.Property.ProductName)" Id="PRODDATAFOLDER" />
+			</Directory>
+		</StandardDirectory>
+	</Fragment>
+</Wix>

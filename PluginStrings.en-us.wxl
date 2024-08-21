@@ -1,0 +1,27 @@
+﻿<!--
+This file contains the declaration of all the localizable strings.
+-->
+<WixLocalization xmlns="http://wixtoolset.org/schemas/v4/wxl" Culture="en-US">
+	<String Id="WelcomeDlg_Title" Value="!(bind.Property.Manufacturer) !(bind.Property.ProductName) v!(bind.Property.ProductVersion) Setup" />
+	<String Id="WelcomeDlgTitle" Value="{\WixUI_Font_Title} Welcome to the !(bind.Property.ProductName) Setup Wizard." />
+	<String Id="WelcomeDlgDescription" Value="This Setup Wizard will install !(bind.Property.Manufacturer) !(bind.Property.ProductName) v!(bind.Property.ProductVersion) on your computer. Click Next to continue or Cancel to exit." />
+
+	<String Id="LicenseAgreementDlg_Title" Value="!(bind.Property.Manufacturer) !(bind.Property.ProductName) v!(bind.Property.ProductVersion) Setup" />
+	<String Id="LicenseAgreementDlgDescription" Value="Please read the following license agreement." />
+
+	<String Id="CustomizeDlg_Title" Value="!(bind.Property.Manufacturer) !(bind.Property.ProductName) v!(bind.Property.ProductVersion) Setup" />
+	<String Id="CustomizeDlgDescription" Value="Select the features to be installed."/>
+
+	<String Id="DiskCostDlg_Title" Value="!(bind.Property.Manufacturer) !(bind.Property.ProductName) v!(bind.Property.ProductVersion) Setup" />
+
+	<String Id="ProgressDlg_Title" Value="!(bind.Property.Manufacturer) !(bind.Property.ProductName) v!(bind.Property.ProductVersion) Setup" />
+
+	<String Id="ErrorDlg_Title" Value="!(bind.Property.Manufacturer) !(bind.Property.ProductName) v!(bind.Property.ProductVersion) Setup" />
+
+	<String Id="ExitDialog_Title" Value="!(bind.Property.Manufacturer) !(bind.Property.ProductName) v!(bind.Property.ProductVersion) Setup" />
+
+	<String Id="VerifyReadyDlg_Title" Value="!(bind.Property.Manufacturer) !(bind.Property.ProductName) v!(bind.Property.ProductVersion) Setup" />
+
+	<String Id="VerifyReadyDlgInstallTitle" Value="{\WixUI_Font_Title}Ready to install !(bind.Property.Manufacturer) !(bind.Property.ProductName) v!(bind.Property.ProductVersion)" />
+
+</WixLocalization>

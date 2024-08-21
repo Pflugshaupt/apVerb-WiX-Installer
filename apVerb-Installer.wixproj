@@ -1,0 +1,43 @@
+﻿<Project Sdk="WixToolset.Sdk/5.0.1">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <CompilerAdditionalOptions>
+    </CompilerAdditionalOptions>
+    <SuppressIces>ICE38;ICE64;ICE91;ICE80;ICE57;ICE61</SuppressIces>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
+    <SuppressIces>ICE38;ICE64;ICE91;ICE80;ICE57;ICE61</SuppressIces>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
+    <SuppressIces>ICE38;ICE64;ICE91;ICE80;ICE57;ICE61</SuppressIces>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
+    <SuppressIces>ICE38;ICE64;ICE91;ICE80;ICE57;ICE61</SuppressIces>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <SuppressIces>ICE38;ICE64;ICE91;ICE80;ICE57;ICE61</SuppressIces>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
+    <SuppressIces>ICE38;ICE64;ICE91;ICE80;ICE57;ICE61</SuppressIces>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OutputName>
+    </OutputName>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="PluginTargetFolders.wxs" Link="PluginTargetFolders.wxs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Banner493x312.bmp" Link="Banner493x312.bmp" />
+    <Content Include="Banner493x58.bmp" Link="Banner493x58.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="PluginStrings.en-us.wxl" Link="PluginStrings.en-us.wxl" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="AvxDetectActionWiX.dll" />
+    <None Include="EULA.rtf" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="WixToolset.UI.wixext" Version="5.0.1" />
+  </ItemGroup>
+</Project>
