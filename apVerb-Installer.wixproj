@@ -24,14 +24,8 @@
     </OutputName>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="PluginTargetFolders.wxs" Link="PluginTargetFolders.wxs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Banner493x312.bmp" Link="Banner493x312.bmp" />
-    <Content Include="Banner493x58.bmp" Link="Banner493x58.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="PluginStrings.en-us.wxl" Link="PluginStrings.en-us.wxl" />
+    <Content Include="Banner493x312.bmp" />
+    <Content Include="Banner493x58.bmp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="AvxDetectActionWiX.dll" />
