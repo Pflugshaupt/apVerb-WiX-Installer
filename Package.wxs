@@ -1,91 +1,91 @@
 <Wix xmlns="http://wixtoolset.org/schemas/v4/wxs" xmlns:ui="http://wixtoolset.org/schemas/v4/wxs/ui">
-	<!-- 
+    <!-- 
         Package Settings. Grab version number from (64bit) vst3 file.
         The UpgradeCode needs to be a unique GUID. These can be generated
         in the Visual Studio menu.
     -->
-	<Package Name="apVerb" Manufacturer="apulSoft" Version="!(bind.fileVersion.VST3PLUG)" UpgradeCode="XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX" Compressed="yes">
-		<!-- Allow downgrades -->
-		<MajorUpgrade AllowDowngrades="yes" /> 
-		
-		<!-- Everything should be inside one compressed .msi file -->
-		<Media Id="1" Cabinet="cab1.cab" EmbedCab="yes" CompressionLevel="high"/>
-		
-		<!-- Custom .rtf License -->
-		<WixVariable Id="WixUILicenseRtf" Value="EULA.rtf" />
-		
-		<!-- 
+    <Package Name="apVerb" Manufacturer="apulSoft" Version="!(bind.fileVersion.VST3PLUG)" UpgradeCode="XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX" Compressed="yes">
+        <!-- Allow downgrades -->
+        <MajorUpgrade AllowDowngrades="yes" /> 
+        
+        <!-- Everything should be inside one compressed .msi file -->
+        <Media Id="1" Cabinet="cab1.cab" EmbedCab="yes" CompressionLevel="high"/>
+        
+        <!-- Custom .rtf License -->
+        <WixVariable Id="WixUILicenseRtf" Value="EULA.rtf" />
+        
+        <!-- 
             Custom Banner Images.
             I used double this resolution to support HiDPI screens. Unfortunately, the scaling used is very poor.
             Luckily my images are just flat vector graphics, so it turns out okay.
             This way it looks at least perfect on 200% scale screens.
          -->
-		<WixVariable Id="WixUIBannerBmp" Value="..\..\..\Tools\WiX\Banner493x58.bmp"/>
-		<WixVariable Id="WixUIDialogBmp" Value="..\..\..\Tools\WiX\Banner493x312.bmp"/>
+        <WixVariable Id="WixUIBannerBmp" Value="..\..\..\Tools\WiX\Banner493x58.bmp"/>
+        <WixVariable Id="WixUIDialogBmp" Value="..\..\..\Tools\WiX\Banner493x312.bmp"/>
 
-		<!-- 
+        <!-- 
             The WiX UI Dialog Flow to use. 
             This determines the dialogs used and their order.
             It's possible to customize by grabbing the .wxs file
             from the WiX installation and altering it, 
             but it is tricky business!
         -->
-		<ui:WixUI Id="WixUI_FeatureTree"/>
+        <ui:WixUI Id="WixUI_FeatureTree"/>
 
-		<!-- 
+        <!-- 
             Read some folder paths from the registry. 
             These might have been written by previous runs/other installers.
             Their default values are defined here.    
         -->
-		<Property Id="PRODDATAFOLDER">
-			<RegistrySearch Root="HKCU" Key="Software\[Manufacturer]\[ProductName]" Name="DataPath" Type="raw" />
-		</Property>
-		<Property Id="VST2FOLDER_32">
-			<RegistrySearch Root="HKCU" Key="Software\[Manufacturer]\Installer" Name="VST2Path32" Type="raw" />
-		</Property>
-		<Property Id="VST2FOLDER">
-			<RegistrySearch Root="HKCU" Key="Software\[Manufacturer]\Installer" Name="VST2Path64" Type="raw" />
-		</Property>
+        <Property Id="PRODDATAFOLDER">
+            <RegistrySearch Root="HKCU" Key="Software\[Manufacturer]\[ProductName]" Name="DataPath" Type="raw" />
+        </Property>
+        <Property Id="VST2FOLDER_32">
+            <RegistrySearch Root="HKCU" Key="Software\[Manufacturer]\Installer" Name="VST2Path32" Type="raw" />
+        </Property>
+        <Property Id="VST2FOLDER">
+            <RegistrySearch Root="HKCU" Key="Software\[Manufacturer]\Installer" Name="VST2Path64" Type="raw" />
+        </Property>
 
-		<!-- The list of features that can be selected. -->
-		<Feature Id="VST3_32" Title="32-bit VST3 Plugin" Description="Install the 32-bit VST3 version of !(bind.Property.ProductName) to Program Files (x86)\Common\VST3">
-			<ComponentGroupRef Id="VST3_32" />
-		</Feature>
-		<Feature Id="VST3_64" Title="64-bit VST3 Plugin" Description="Install the 64-bit VST3 version of !(bind.Property.ProductName) to Program Files\Common\VST3">
-			<ComponentGroupRef Id="VST3_64" />
-		</Feature>
-		<Feature Id="AAX_32" Title="32-bit AAX Plugin" Description="Install the 32-bit AAX version of !(bind.Property.ProductName) to Program Files (x86)\Common\Avid\Audio\Plug-Ins">
-			<ComponentGroupRef Id="AAX_32" />
-		</Feature>
-		<Feature Id="AAX_64" Title="64-bit AAX Plugin" Description="Install the 64-bit AAX version of !(bind.Property.ProductName) to Program Files\Common\Avid\Audio\Plug-Ins">
-			<ComponentGroupRef Id="AAX_64" />
-		</Feature>
-		<Feature Id="VST2_32" Title="32-bit VST2 Plugin" Description="Install the 32-bit VST2 version of !(bind.Property.ProductName) to Program Files (x86)\Steinberg\VSTPlugins" ConfigurableDirectory="VST2FOLDER_32">
-			<ComponentGroupRef Id="VST2_32" />
-		</Feature>
-		<Feature Id="VST2_64" Title="64-bit VST2 Plugin" Description="Install the 64-bit VST2 version of !(bind.Property.ProductName) to Program Files\Steinberg\VSTPlugins" ConfigurableDirectory="VST2FOLDER">
-			<ComponentGroupRef Id="VST2_64" />
-		</Feature>
-		<Feature Id="PRESETSMANUAL" Title="Factory Presets, Manual &amp; Color Schemes" Description="Install the !(bind.Property.ProductName) factory presets, the .pdf manual and color schemes to your data folder." ConfigurableDirectory="PRODDATAFOLDER">
-			<ComponentGroupRef Id="PRESETS" />
-			<ComponentGroupRef Id="MANUAL" />
-			<ComponentGroupRef Id="COLORSCHEMES" />
-		</Feature>
-		<!-- The base gets installed always. -->
-		<Feature Id="BASE" Title="Base" Display="hidden">
-			<ComponentGroupRef Id="BASE" />
-		</Feature>
+        <!-- The list of features that can be selected. -->
+        <Feature Id="VST3_32" Title="32-bit VST3 Plugin" Description="Install the 32-bit VST3 version of !(bind.Property.ProductName) to Program Files (x86)\Common\VST3">
+            <ComponentGroupRef Id="VST3_32" />
+        </Feature>
+        <Feature Id="VST3_64" Title="64-bit VST3 Plugin" Description="Install the 64-bit VST3 version of !(bind.Property.ProductName) to Program Files\Common\VST3">
+            <ComponentGroupRef Id="VST3_64" />
+        </Feature>
+        <Feature Id="AAX_32" Title="32-bit AAX Plugin" Description="Install the 32-bit AAX version of !(bind.Property.ProductName) to Program Files (x86)\Common\Avid\Audio\Plug-Ins">
+            <ComponentGroupRef Id="AAX_32" />
+        </Feature>
+        <Feature Id="AAX_64" Title="64-bit AAX Plugin" Description="Install the 64-bit AAX version of !(bind.Property.ProductName) to Program Files\Common\Avid\Audio\Plug-Ins">
+            <ComponentGroupRef Id="AAX_64" />
+        </Feature>
+        <Feature Id="VST2_32" Title="32-bit VST2 Plugin" Description="Install the 32-bit VST2 version of !(bind.Property.ProductName) to Program Files (x86)\Steinberg\VSTPlugins" ConfigurableDirectory="VST2FOLDER_32">
+            <ComponentGroupRef Id="VST2_32" />
+        </Feature>
+        <Feature Id="VST2_64" Title="64-bit VST2 Plugin" Description="Install the 64-bit VST2 version of !(bind.Property.ProductName) to Program Files\Steinberg\VSTPlugins" ConfigurableDirectory="VST2FOLDER">
+            <ComponentGroupRef Id="VST2_64" />
+        </Feature>
+        <Feature Id="PRESETSMANUAL" Title="Factory Presets, Manual &amp; Color Schemes" Description="Install the !(bind.Property.ProductName) factory presets, the .pdf manual and color schemes to your data folder." ConfigurableDirectory="PRODDATAFOLDER">
+            <ComponentGroupRef Id="PRESETS" />
+            <ComponentGroupRef Id="MANUAL" />
+            <ComponentGroupRef Id="COLORSCHEMES" />
+        </Feature>
+        <!-- The base gets installed always. -->
+        <Feature Id="BASE" Title="Base" Display="hidden">
+            <ComponentGroupRef Id="BASE" />
+        </Feature>
 
-		<!-- 
+        <!-- 
             Some tweaks to speed up installation. Without this, 
             it can take minutes on systems that haven't done a restore 
             point in a while. 
             - Prevent rollback scripts from being created.
             - Prevent the generation of a system restore point.
             - Prevent lenghty file space costing calculations.
-            -->
-		<Property Id='DISABLEROLLBACK' Value='1' />
-		<Property Id='MSIFASTINSTALL' Value='7' />
+        -->
+        <Property Id='DISABLEROLLBACK' Value='1' />
+        <Property Id='MSIFASTINSTALL' Value='7' />
 
         <!-- 
             The next section is about cpu feature detection.
@@ -94,16 +94,16 @@
             To do this, a special .dll had to be created called AVXDetectBinary.
             Its source code is in a subfolder.
         -->
-		<Binary Id="AVXDetectBinary" SourceFile="AvxDetectActionWiX.dll" />
-		<!-- This property is set by the .dll and is shared between installer UI and actual installer (=Secure) -->
-		<Property Id="AVXSUPPORTED" Secure="yes" />
+        <Binary Id="AVXDetectBinary" SourceFile="AvxDetectActionWiX.dll" />
+        <!-- This property is set by the .dll and is shared between installer UI and actual installer (=Secure) -->
+        <Property Id="AVXSUPPORTED" Secure="yes" />
         <!-- Run the one method in the .dll immediately. It writes to the AVXDetectBinary property. -->
-		<CustomAction Id="AVXCheck" BinaryRef="AVXDetectBinary" DllEntry="AVXDetect" Execute="immediate" Return="check"/>
+        <CustomAction Id="AVXCheck" BinaryRef="AVXDetectBinary" DllEntry="AVXDetect" Execute="immediate" Return="check"/>
         <!-- This was the key.. UISequence is needed (UI flow), not ExecuteSequence (install flow). -->
-		<InstallUISequence> 
-			<Custom Action="AVXCheck" Before="LaunchConditions" />
-		</InstallUISequence>
+        <InstallUISequence> 
+            <Custom Action="AVXCheck" Before="LaunchConditions" />
+        </InstallUISequence>
         <!-- Only launch install if AVX is supported, otherwise display a dialog and abort. -->
-		<Launch Condition="AVXSUPPORTED = &quot;1&quot;" Message="This machine does not support AVX instructions, which are required for [Manufacturer] [ProductName]." />
-	</Package>
+        <Launch Condition="AVXSUPPORTED = &quot;1&quot;" Message="This machine does not support AVX instructions, which are required for [Manufacturer] [ProductName]." />
+    </Package>
 </Wix>

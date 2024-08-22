@@ -6,54 +6,54 @@
     to the registry.
 -->
 <Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
-	<Fragment>
+    <Fragment>
         <!-- 
             The base installation group currently is just one text file.
             since v5, WiX will automatically create a component.
         -->
-		<ComponentGroup Id="BASE" Directory="PRODDATAFOLDER">
-			<File Source="..\..\Resources\3rd party licenses.txt"/>
-		</ComponentGroup>
+        <ComponentGroup Id="BASE" Directory="PRODDATAFOLDER">
+            <File Source="..\..\Resources\3rd party licenses.txt"/>
+        </ComponentGroup>
         <!-- 
             The manual group contains the manual and the instruction
             to write the customizable data path to the registry, where
             the installed plugin can pick it up. 
             Writing to the registry requires a component enclosure. 
         -->
-		<ComponentGroup Id="MANUAL" Directory="PRODDATAFOLDER">
-			<Component> 
-				<File Source="..\..\Resources\apVerb Manual.pdf"/>
-				<RemoveFolder Directory="PRODDATAFOLDER" On="uninstall" />
-				<RemoveFolder Directory="MANUDATAFOLDER" On="uninstall" />
-				<!-- Store the data folder to the registry so the plugin can pick it up. -->
-				<RegistryValue Root="HKCU" Key="Software\[Manufacturer]\[ProductName]" 
+        <ComponentGroup Id="MANUAL" Directory="PRODDATAFOLDER">
+            <Component> 
+                <File Source="..\..\Resources\apVerb Manual.pdf"/>
+                <RemoveFolder Directory="PRODDATAFOLDER" On="uninstall" />
+                <RemoveFolder Directory="MANUDATAFOLDER" On="uninstall" />
+                <!-- Store the data folder to the registry so the plugin can pick it up. -->
+                <RegistryValue Root="HKCU" Key="Software\[Manufacturer]\[ProductName]" 
                     Name="DataPath" Type="string" Value="[PRODDATAFOLDER]" />
-			</Component>
-		</ComponentGroup>
-		<!-- 
+            </Component>
+        </ComponentGroup>
+        <!-- 
             The presets use the new <Files/> auto-gathering tag to grab all
             presets in folders and subfolders and create components for each.
         -->
         <ComponentGroup Id="PRESETS" Directory="PRODDATAFOLDER" Subdirectory="Presets">
-			<Files Include="..\..\Presets\**\*.avrbpreset" />
-		</ComponentGroup>
-		<!-- 
+            <Files Include="..\..\Presets\**\*.avrbpreset" />
+        </ComponentGroup>
+        <!-- 
             Pick up all color scheme xml files in folders and subfolders. 
         -->
         <ComponentGroup Id="COLORSCHEMES" Directory="PRODDATAFOLDER" Subdirectory="ColorSchemes">
-			<Files Include="..\..\ColorSchemes\**\*.xml" />
-		</ComponentGroup>
+            <Files Include="..\..\ColorSchemes\**\*.xml" />
+        </ComponentGroup>
         <!-- 
             For VST3 I am using the single file variant to support legacy host.
             The multi-architecture folder version would need to be done similar to AAX.
         -->
-		<ComponentGroup Id="VST3_32" Directory="VST3FOLDER_32">
-			<File Source="..\..\build32\apVerb_artefacts\Release\VST3\apVerb.vst3\Contents\x86-win\apVerb.vst3" />
-		</ComponentGroup>
-		<ComponentGroup Id="VST3_64" Directory="VST3FOLDER">
+        <ComponentGroup Id="VST3_32" Directory="VST3FOLDER_32">
+            <File Source="..\..\build32\apVerb_artefacts\Release\VST3\apVerb.vst3\Contents\x86-win\apVerb.vst3" />
+        </ComponentGroup>
+        <ComponentGroup Id="VST3_64" Directory="VST3FOLDER">
             <!-- the 64-bit vst3 variant is the source of the version number and thus needs an independent Id. -->
-			<File Source="..\..\build64\apVerb_artefacts\Release\VST3\apVerb.vst3\Contents\x86_64-win\apVerb.vst3" Id="VST3PLUG" />
-		</ComponentGroup>
+            <File Source="..\..\build64\apVerb_artefacts\Release\VST3\apVerb.vst3\Contents\x86_64-win\apVerb.vst3" Id="VST3PLUG" />
+        </ComponentGroup>
         <!-- 
             Theoretically, the AAX folder could be picked up using the <Files/> tag. 
             However, for 32-bit support, two copies of the structure need to be written to
@@ -63,43 +63,43 @@
             Therefore I did it by hand using Components which leads to different ids for the same files.
             The folder structure is automatically created when writing the inner file.
         -->
-		<ComponentGroup Id="AAX_32">
-			<Component Directory="AAXFOLDER_32_32">
-				<File Source="apVerb.aaxPlugin\Contents\Win32\apVerb.aaxplugin"/>
-			</Component>
-			<Component Directory="AAXFOLDER_32_64">
-				<File Source="apVerb.aaxPlugin\Contents\x64\apVerb.aaxplugin"/>
-			</Component>
-		</ComponentGroup>
-		<ComponentGroup Id="AAX_64">
-			<Component Directory="AAXFOLDER_64_32">
-				<File Source="apVerb.aaxPlugin\Contents\Win32\apVerb.aaxplugin"/>
-			</Component>
-			<Component Directory="AAXFOLDER_64_64">
-				<File Source="apVerb.aaxPlugin\Contents\x64\apVerb.aaxplugin"/>
-			</Component>
-		</ComponentGroup>
+        <ComponentGroup Id="AAX_32">
+            <Component Directory="AAXFOLDER_32_32">
+                <File Source="apVerb.aaxPlugin\Contents\Win32\apVerb.aaxplugin"/>
+            </Component>
+            <Component Directory="AAXFOLDER_32_64">
+                <File Source="apVerb.aaxPlugin\Contents\x64\apVerb.aaxplugin"/>
+            </Component>
+        </ComponentGroup>
+        <ComponentGroup Id="AAX_64">
+            <Component Directory="AAXFOLDER_64_32">
+                <File Source="apVerb.aaxPlugin\Contents\Win32\apVerb.aaxplugin"/>
+            </Component>
+            <Component Directory="AAXFOLDER_64_64">
+                <File Source="apVerb.aaxPlugin\Contents\x64\apVerb.aaxplugin"/>
+            </Component>
+        </ComponentGroup>
         <!--
             For VST2 there is no fixed location in the system to install plugins to.
             The path needs to be customizable and the set path needs to be stored to
             the registry so updates can grab it again. It is initialized/read from
             the registry in the main .wxs file.
         -->
-		<ComponentGroup Id="VST2_32" Directory="VST2FOLDER_32">
-			<Component>
-				<File Source="..\..\build32\apVerb_artefacts\Release\VST\apVerb.dll" />
-				<!-- Store VST2/32 path to registry for updates/other installers. -->
-				<RegistryValue Root="HKCU" Key="Software\[Manufacturer]\Installer" 
+        <ComponentGroup Id="VST2_32" Directory="VST2FOLDER_32">
+            <Component>
+                <File Source="..\..\build32\apVerb_artefacts\Release\VST\apVerb.dll" />
+                <!-- Store VST2/32 path to registry for updates/other installers. -->
+                <RegistryValue Root="HKCU" Key="Software\[Manufacturer]\Installer" 
                     Name="VST2Path32" Type="string" Value="[VST2FOLDER_32]" />
-			</Component>
-		</ComponentGroup>
-		<ComponentGroup Id="VST2_64" Directory="VST2FOLDER">
-			<Component>
-				<File Source="..\..\build64\apVerb_artefacts\Release\VST\apVerb.dll" />
-				<!-- Store VST2/64 path to registry for updates/other installers. -->
-				<RegistryValue Root="HKCU" Key="Software\[Manufacturer]\Installer" 
+            </Component>
+        </ComponentGroup>
+        <ComponentGroup Id="VST2_64" Directory="VST2FOLDER">
+            <Component>
+                <File Source="..\..\build64\apVerb_artefacts\Release\VST\apVerb.dll" />
+                <!-- Store VST2/64 path to registry for updates/other installers. -->
+                <RegistryValue Root="HKCU" Key="Software\[Manufacturer]\Installer" 
                     Name="VST2Path64" Type="string" Value="[VST2FOLDER]" />
-			</Component>
-		</ComponentGroup>
-	</Fragment>
+            </Component>
+        </ComponentGroup>
+    </Fragment>
 </Wix>
