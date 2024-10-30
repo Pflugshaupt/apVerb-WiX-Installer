@@ -99,6 +99,10 @@
         <Property Id="AVXSUPPORTED" Secure="yes" />
         <!-- Run the one method in the .dll immediately. It writes to the AVXDetectBinary property. -->
         <CustomAction Id="AVXCheck" BinaryRef="AVXDetectBinary" DllEntry="AVXDetect" Execute="immediate" Return="check"/>
+        <!-- execute sequence is required if the (un)install happens without gui -->
+		<InstallExecuteSequence> 
+			<Custom Action="AVXCheck" Before="LaunchConditions" />
+		</InstallExecuteSequence>
         <!-- This was the key.. UISequence is needed (UI flow), not ExecuteSequence (install flow). -->
         <InstallUISequence> 
             <Custom Action="AVXCheck" Before="LaunchConditions" />
