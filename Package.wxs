@@ -76,16 +76,16 @@
             <ComponentGroupRef Id="BASE" />
         </Feature>
 
-        <!-- 
-            Some tweaks to speed up installation. Without this, 
-            it can take minutes on systems that haven't done a restore 
-            point in a while. 
-            - Prevent rollback scripts from being created.
-            - Prevent the generation of a system restore point.
-            - Prevent lenghty file space costing calculations.
-        -->
-        <Property Id='DISABLEROLLBACK' Value='1' />
-        <Property Id='MSIFASTINSTALL' Value='7' />
+	<!-- Prevent rollback scripts from being created https://learn.microsoft.com/en-us/windows/desktop/msi/-disablerollback -->
+	<Property Id='DISABLEROLLBACK' Value='1' />
+	<!-- Disable system restore points and file costing calculations https://learn.microsoft.com/de-de/windows/desktop/Msi/msifastinstall -->
+	<Property Id='MSIFASTINSTALL' Value='7' />
+	<!-- Make the installer 'dumb': https://learn.microsoft.com/en-us/windows/win32/msi/reinstallmode
+		'a' overwrite all files 
+		'm' overwrite machine registry keys
+		'u' overwrite user registry keys 
+		's' overwrite shortcuts and icons. -->
+	<Property Id='REINSTALLMODE' Value='amus'/>
 
         <!-- 
             The next section is about cpu feature detection.
